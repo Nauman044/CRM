@@ -631,11 +631,17 @@ table.table td.cell-na{min-width:0}
 
 /* phone: copy icon number wale pill ke bilkul right side pe */
 .phone-clickable-container{display:inline-block;width:max-content;min-width:0}
-table.table td:has(.phone-clickable-container){padding-right:52px}
-.phone-clickable-cell{padding:5px 12px}
-.phone-hover-copy-icon{right:auto;left:calc(100% + 6px);top:0;margin-top:0;width:32px;height:32px;border-radius:50%;opacity:0;transition:opacity .15s,color .15s,border-color .15s}
+.phone-clickable-cell{padding:4px 18px 4px 12px}
+/* copy icon: number wale pill ke right edge par, aadha pill ke upar aadha bahar */
+.phone-hover-copy-icon{right:-14px;left:auto;top:3px;margin-top:0;width:28px;height:28px;border-radius:50%;opacity:0;box-shadow:0 2px 8px rgba(15,26,51,.18);transition:opacity .15s,color .15s,border-color .15s}
+.phone-hover-copy-icon .ico{width:14px;height:14px}
 table.table tbody tr:hover .phone-hover-copy-icon,.phone-clickable-container:hover .phone-hover-copy-icon{opacity:1}
-.call-status{margin:3px 0 0}
+table.table td:has(.phone-clickable-container){padding-right:30px;padding-top:6px;padding-bottom:6px}
+.call-status{margin:2px 0 0;line-height:1.45}
+
+/* entity type: fixed width, lamba text ellipsis se kat jaye (gap khatam) */
+table.table th:nth-child(4),table.table td:nth-child(4){width:150px;min-width:150px;max-width:150px;overflow:hidden}
+.chip-type{display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:middle}
 
 /* remarks + action thode compact */
 .remarks-cell-container{min-width:230px;width:240px}
