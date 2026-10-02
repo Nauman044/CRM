@@ -2,7 +2,7 @@
    Dispatch Link - style.css   (light + dark themes, all design lives here)
    1 Tokens · 2 Base · 3 Buttons & fields · 4 Login · 5 App bar & settings
    6 Page layout · 7 Filters · 8 Leads table · 9 Drawers · 10 Modals & toasts
-   11 Responsive
+   11 Responsive · 12 Premium · 13 Round 2 · 14 Round 3 · 15 Round 4 (compact)
    ===================================================================== */
 
 /* ---------- 1. TOKENS ---------- */
@@ -608,3 +608,40 @@ table.table tr.is-followed td:last-child{background:color-mix(in srgb,var(--ok) 
 .hc-btn.main:hover:not(:disabled){color:#fff;filter:brightness(1.1);background:var(--grad)}
 .hc-btn.del{padding:0;color:var(--bad)}.hc-btn.del:hover{border-color:var(--bad);color:var(--bad);background:color-mix(in srgb,var(--bad) 10%,transparent)}
 .hc-btn:disabled{opacity:.4;cursor:not-allowed}
+
+/* =====================================================================
+   15. ROUND 4: COMPACT TABLE - no wasted space, copy icon next to number
+   ===================================================================== */
+
+/* table sirf content jitni width le, extra khali jagah columns me na phaile */
+table.table{width:max-content;min-width:0}
+table.table th{padding:12px 14px}
+table.table td{padding:8px 14px}
+table.table tbody td{height:58px}
+
+/* company: chhota letter-icon */
+table.table td:nth-child(3){max-width:260px;padding-left:14px}
+table.table td:nth-child(3)::before{width:26px;height:26px;margin-right:9px;border-radius:8px;font-size:12px}
+
+/* email column: fixed compact (email + Send button), 420px wali jagah khatam */
+table.table td:nth-child(8){min-width:0;width:auto}
+table.table td.cell-na{min-width:0}
+.email-cell{display:grid;grid-template-columns:230px 84px;gap:12px;width:auto;align-items:center}
+.email-cell .premium-pitch-btn{width:84px}
+
+/* phone: copy icon number wale pill ke bilkul right side pe */
+.phone-clickable-container{display:inline-block;width:max-content;min-width:0}
+table.table td:has(.phone-clickable-container){padding-right:52px}
+.phone-clickable-cell{padding:5px 12px}
+.phone-hover-copy-icon{right:auto;left:calc(100% + 6px);top:0;margin-top:0;width:32px;height:32px;border-radius:50%;opacity:0;transition:opacity .15s,color .15s,border-color .15s}
+table.table tbody tr:hover .phone-hover-copy-icon,.phone-clickable-container:hover .phone-hover-copy-icon{opacity:1}
+.call-status{margin:3px 0 0}
+
+/* remarks + action thode compact */
+.remarks-cell-container{min-width:230px;width:240px}
+table.table th:last-child,table.table td:last-child{width:116px;min-width:116px}
+.premium-followup-btn{width:88px}
+
+@media(max-width:900px){
+  table.table td:nth-child(8){min-width:0}
+}
