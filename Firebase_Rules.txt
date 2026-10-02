@@ -1,0 +1,14 @@
+If your CRM databases already allow read/write, nothing to change.
+Otherwise (Firebase console > Realtime Database > Rules) these paths must be readable AND writable:
+
+{
+  "rules": {
+    ".read": false, ".write": false,
+    "allowedUsers":  { ".read": true, ".write": true },
+    "sales_users":   { ".read": true, ".write": true },
+    "sessions":      { ".read": true, ".write": true },
+    "call_logs":     { ".read": true, ".write": true },
+    "shift_reports": { ".read": true, ".write": true },
+    "shared_leads":  { ".read": true, ".write": true }
+  }
+}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dispatch Link | Admin</title><link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/mrartist048/fmcsa-control@main/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="portal.css"></head><body>
+<svg width="0" height="0" style="position:absolute"><symbol id="i-crm" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+<symbol id="i-dms" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></symbol>
+<symbol id="i-mon" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></symbol></svg>
+<div class="top"><div class="logo"><span class="lg"><img src="https://cdn.jsdelivr.net/gh/mrartist048/fmcsa-control@main/favicon.png" alt=""></span>Dispatch Link</div><span id="who"></span><button class="btn" onclick="DL.logout()">Sign out</button></div>
+<main>
+ <h1 id="t">Admin panel</h1><p class="sub">Open any workspace of your company from here.</p>
+ <div class="cards">
+  <a class="app" href="crm.html"><svg class="ico"><use href="#i-crm"/></svg><b>CRM</b><small>Lead scanning, calls and follow-ups</small></a>
+  <a class="app" href="dms.html"><svg class="ico"><use href="#i-dms"/></svg><b>Dispatch Management (DMS)</b><small>Carriers, loads, invoices and dispatch team logins</small></a>
+  <a class="app" href="admin.html"><svg class="ico"><use href="#i-mon"/></svg><b>Team monitoring</b><small>Online agents, calling leaderboard, shift reports</small></a>
+ </div>
+ <div class="panel"><h2>Licence</h2><div class="kv" id="lic">Loading...</div></div>
+ <div class="panel"><h2>Sales team (CRM logins)</h2>
+  <p class="sub" style="margin:-6px 0 10px">Sales agents sign in under <b>CRM Login</b> with the username and password you set here, plus your Company ID (<b id="cid"></b>). Dispatch team logins are created in <a href="dms.html">DMS &gt; Settings</a>.</p>
+  <table id="tl"></table>
+  <div class="row"><div><label>Agent name</label><input id="n" placeholder="e.g. Ali"></div><div><label>Username</label><input id="us" autocomplete="off" placeholder="ali01"></div><div><label>Password</label><input id="pw" autocomplete="off" placeholder="min 6 characters"></div><button class="btn pri" onclick="add()">Create login</button></div>
+  <div class="msg" id="m"></div></div>
+</main>
+<script src="auth.js"></script>
+<script>
+const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let S,C;
+(async()=>{S=await DL.guard(['admin']);if(!S)return;
+ $('who').textContent=S.name;$('cid').textContent=S.company;
+ try{C=await DL.verify(S)}catch(e){return}
+ const left=C.expires?Math.ceil((new Date(C.expires+'T23:59:59')-Date.now())/864e5):null;
+ const cls=left===null?'':left<=7?'r':left<=30?'w':'';
+ $('lic').innerHTML=[['Company',esc(C.id)],['Valid until',esc(C.expires||'No expiry')],['Status','<span class="pill '+cls+'">'+(left===null?'Active':left+' days left')+'</span>'],['Device / tab limit',C.maxLaptops||'Unlimited']].map(([a,b])=>'<div><small>'+a+'</small><b>'+b+'</b></div>').join('');
+ list()})();
+async function list(){const u=await DL.salesList(C),k=Object.keys(u);
+ $('tl').innerHTML='<tr><th>Agent</th><th>Username</th><th></th></tr>'+(k.map(x=>'<tr><td>'+esc(u[x].name)+'</td><td>'+esc(x)+'</td><td class="r"><button class="btn" onclick="pw(\''+esc(x)+'\')">Change password</button> <button class="btn del" onclick="del(\''+esc(x)+'\')">Remove</button></td></tr>').join('')||'<tr><td colspan="3">No sales agents yet.</td></tr>')}
+function say(t,ok){$('m').className='msg'+(ok?' ok':'');$('m').textContent=t}
+async function add(){const n=$('n').value.trim(),u=$('us').value.trim().toLowerCase(),p=$('pw').value;
+ if(!n||!/^[a-z0-9_-]{3,}$/.test(u)||p.length<6)return say('Enter a name, a username (3+ letters/numbers, no spaces) and a password (6+ characters).');
+ try{if((await DL.salesList(C))[u])return say('This username is already taken.');await DL.salesPut(C,u,n,p);['n','us','pw'].forEach(i=>$(i).value='');say('Login created. Share the username, password and Company ID with '+n+'.',1);list()}catch(e){say(DL.msg(e))}}
+async function pw(u){const p=prompt('New password for "'+u+'" (min 6 characters):');if(p===null)return;if(p.length<6)return say('Password must be at least 6 characters.');
+ try{const o=(await DL.salesList(C))[u];await DL.salesPut(C,u,o.name,p);say('Password changed.',1)}catch(e){say(DL.msg(e))}}
+async function del(u){if(!confirm('Remove access for "'+u+'"?'))return;try{await DL.salesDel(C,u);list()}catch(e){say(DL.msg(e))}}
+</script></body></html>

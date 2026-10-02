@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dispatch Link</title>
+<meta name="description" content="Professional U.S. freight dispatch CRM and FMCSA lead processor. Contact: 03700684849">
+<link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/mrartist048/fmcsa-control@main/favicon.png">
+<script>document.documentElement.dataset.theme=localStorage.getItem('dl_theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="dl-locked">
+
+<!-- Icon sprite: every icon in the app is drawn from here (no emojis) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></symbol>
+  <symbol id="i-stop" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1.5"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 19c-6.5 0-10-7-10-7a18.5 18.5 0 0 1 5.06-5.94M9.9 5.24A9.1 9.1 0 0 1 12 5c6.5 0 10 7 10 7a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="2" y1="2" x2="22" y2="22"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
+  <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+  <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></symbol><symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></symbol><symbol id="i-headset" viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></symbol><symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></symbol><symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></symbol><symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol><symbol id="i-activity" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></symbol><symbol id="i-layers" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></symbol>  <symbol id="i-phoneoff" viewBox="0 0 24 24"><path d="M10.68 13.31a16 16 0 0 0 3.41 2.6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07M6.34 6.34A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91"/><line x1="1" y1="1" x2="23" y2="23"/></symbol><symbol id="i-voicemail" viewBox="0 0 24 24"><circle cx="5.5" cy="11.5" r="4.5"/><circle cx="18.5" cy="11.5" r="4.5"/><line x1="5.5" y1="16" x2="18.5" y2="16"/></symbol><symbol id="i-xcircle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></symbol><symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></symbol><symbol id="i-trophy" viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></symbol><symbol id="i-plus" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></symbol><symbol id="i-send" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></symbol>  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></symbol><symbol id="i-trash" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></symbol><symbol id="i-external" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+</svg>
+
+<!-- scraper-core.js uses the first h1/h2/.heading on the page: keep this h2 first -->
+<header class="app-bar">
+  <h2><span class="brand-tile"><img src="https://cdn.jsdelivr.net/gh/mrartist048/fmcsa-control@main/favicon.png" alt="" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'logo-fallback',textContent:'DL'}))"></span>Dispatch Link</h2>
+  <nav class="app-nav" aria-label="Main menu">
+    <button type="button" class="nav-tab" id="openHistoryBtn" data-panel="dlHistoryDrawer" onclick="toggleHistoryDrawer()">History</button>
+    <button type="button" class="nav-tab" id="openFollowUpDrawerBtn" data-panel="dlFollowUpDrawer" onclick="toggleFollowUpDrawer()">Follow-ups</button>
+    <button type="button" class="nav-tab" id="openTodayCallsBtn" onclick="openCallingDetailModal()">Today's calls</button>
+    <button type="button" class="nav-tab" id="openContactBtn" onclick="openContactModal()">Contact us</button>
+  </nav>
+</header>
+
+<main class="container">
+  <div class="page-head">
+    <div class="eyebrow"><i></i>FMCSA live data</div>
+    <div class="page-title">Lead processor</div>
+    <div class="page-sub">Scan FMCSA MC numbers, call carriers, track call status and manage follow-ups in one place.</div>
+  </div>
+
+  <section class="summary" aria-label="Summary">
+    <div class="sum-cell k-blue"><span class="sum-ico"><svg class="ico"><use href="#i-layers"/></svg></span><span class="sum-label">Records found</span><span class="sum-value" id="kpiRecords">0</span><span class="sum-hint">Carriers in the current table</span></div>
+    <div class="sum-cell k-violet"><span class="sum-ico"><svg class="ico"><use href="#i-target"/></svg></span><span class="sum-label">Scan range</span><span class="sum-value" id="kpiRange">Not set</span><span class="sum-hint">Starting - ending MC number</span></div>
+    <div class="sum-cell k-teal sum-progress"><span class="sum-ico"><svg class="ico"><use href="#i-activity"/></svg></span><span class="sum-label">Scan progress</span><span class="sum-value" id="kpiProgress">Idle</span>
+      <div class="bar"><span id="kpiProgressBar"></span></div><span class="sum-hint">Live status of the running scan</span></div>
+    <div class="sum-cell k-amber"><span class="sum-ico"><svg class="ico"><use href="#i-phone"/></svg></span><span class="sum-label">Calls this shift</span><span class="sum-value" id="kpiCalls">0</span><span class="sum-hint">Logged by you in this shift</span></div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head"><h3 class="panel-title">MC range scanner</h3><span class="panel-note">Source: FMCSA SAFER</span></div>
+    <div class="panel-body">
+      <div class="input-group">
+        <div class="input-field"><label for="startMc">Starting MC number</label><input type="number" id="startMc" value="0"></div>
+        <div class="input-field"><label for="endMc">Ending MC number</label><input type="number" id="endMc" value="0"></div>
+      </div>
+      <div class="btn-container">
+        <button class="btn-start" id="startBtn" onclick="startScraping()"><svg class="ico"><use href="#i-play"/></svg>Start scanning</button>
+        <button class="btn-stop" id="stopBtn" onclick="stopScraping()" style="display:none"><svg class="ico"><use href="#i-stop"/></svg>Stop</button>
+        <button class="btn-download" id="downloadBtn" onclick="downloadCSV()" style="display:none"><svg class="ico"><use href="#i-download"/></svg>Download Excel/CSV</button>
+      </div>
+      <div id="status" class="status idle">Enter an MC range and click Start scanning.</div>
+    </div>
+  </section>
+
+  <!-- Filters -->
+  <section class="toolbar" id="advancedFilterWrapper">
+    <div class="search"><svg class="ico"><use href="#i-search"/></svg><input type="text" id="universalSearchInput" placeholder="Search by MC, company name or phone" oninput="applyAdvancedFilters()"></div>
+    <select id="stateDropdownSelect" onchange="applyAdvancedFilters()"><option value="">All States</option></select>
+    <div class="dd" id="categoryDropdownCheckList">
+      <button type="button" class="dd-btn anchor" onclick="toggleCategoryDropdown(event)">Categories</button>
+      <ul class="dd-menu" id="checkboxListContainer"></ul>
+    </div>
+    <div class="dd" id="vehicleDropdown">
+      <button type="button" class="dd-btn" id="vehicleDropdownBtn" onclick="toggleVehicleDropdown(event)">Vehicle types</button>
+      <div class="dd-menu" id="vehicleTypeDropdownContent"><div id="vehicleCheckboxList"></div></div>
+    </div>
+    <button class="btn-ghost" onclick="resetAdvancedFilters()">Reset</button>
+    <div class="count-badge">Showing <b id="visibleRecordCountBadge">0</b> records</div>
+  </section>
+
+  <!-- Email proposal template -->
+  <section class="panel proposal" id="premiumProposalWrapper">
+    <div class="proposal-head" onclick="toggleProposalPanel()"><strong>Email proposal template</strong><span>Edit<svg class="ico"><use href="#i-chevron"/></svg></span></div>
+    <div class="proposal-body" id="proposalInputsBlock">
+      <input type="text" id="propSubjectInput" placeholder="Subject">
+      <textarea id="propBodyInput" rows="5" placeholder="Message. Use {company} for the carrier name"></textarea>
+      <div class="hint">Tip: <code>{company}</code> is replaced with the carrier name.</div>
+      <button class="btn-primary" onclick="saveProposalTemplateSettings()">Save template</button>
+    </div>
+  </section>
+</main>
+
+<!-- Leads table: fills the screen down to the bottom edge, scrolls vertically and horizontally inside -->
+<section class="table-area" aria-label="Leads">
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>MC number</th><th>USDOT</th><th>Company name</th><th>Entity type</th><th>Operating status</th>
+          <th>Phone</th><th>Address</th><th>Email</th><th>Power units</th>
+        </tr>
+      </thead>
+      <tbody id="resultsTable">
+        <tr><td colspan="9" class="empty">No data loaded yet. Enter an MC range and click Start scanning.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Drawers -->
+<div id="drawerScrim" onclick="closeDrawers()"></div>
+<aside class="drawer" id="dlHistoryDrawer" aria-label="Saved sheets history">
+  <div class="drawer-head"><div><h3>Saved sheets history</h3><p class="drawer-sub">Every scan is saved automatically. Open, resume or export it anytime.</p></div><button class="x" onclick="closeDrawers()" aria-label="Close"><svg class="ico"><use href="#i-x"/></svg></button></div>
+  <div class="drawer-list" id="drawerHistoryList"></div>
+</aside>
+<aside class="drawer" id="dlFollowUpDrawer" aria-label="Follow-up pipeline">
+  <div class="drawer-head"><h3>Follow-up pipeline</h3><button class="x" onclick="closeDrawers()" aria-label="Close"><svg class="ico"><use href="#i-x"/></svg></button></div>
+  <div class="seg">
+    <button id="fubtnToday" class="active" onclick="filterFollowUpsByDate('today')">Today</button>
+    <button id="fubtnAll" onclick="filterFollowUpsByDate('all')">All</button>
+  </div>
+  <div class="drawer-search">
+    <input type="text" id="followUpSearchInput" placeholder="Search MC, name or phone" oninput="renderFollowUpItems()">
+    <button class="btn-ghost" onclick="clearFollowUpFilters()" title="Clear filters" aria-label="Clear filters"><svg class="ico"><use href="#i-refresh"/></svg></button>
+  </div>
+  <button class="btn-success block" onclick="downloadFollowUpsCSV()"><svg class="ico"><use href="#i-download"/></svg>Download follow-ups sheet</button>
+  <div class="bulk">
+    <label><input type="checkbox" id="selectAllFollowUpsCheckbox" onclick="toggleSelectAllFollowUps(this)"> Select all</label>
+    <button class="btn-primary" onclick="shareSelectedFollowUpsToTeam()">Share selected</button>
+  </div>
+  <div class="drawer-list" id="drawerFollowUpList"></div>
+</aside>
+
+<!-- Modals -->
+<div class="overlay" id="dlDatePickerModal">
+  <div class="modal-card">
+    <h3>Schedule follow-up</h3>
+    <label for="dlModalDateInput">Date</label><input type="date" id="dlModalDateInput">
+    <label for="dlModalTimeInput">Time</label><input type="time" id="dlModalTimeInput">
+    <div class="modal-actions"><button class="btn-ghost" onclick="closeFollowUpModal()">Cancel</button><button class="btn-success" onclick="confirmFollowUpSchedule()">Confirm schedule</button></div>
+  </div>
+</div>
+<div class="overlay" id="dlTeamSelectModal">
+  <div class="modal-card">
+    <h3>Share with team member</h3>
+    <p class="muted">Online or offline members will receive it in their inbox.</p>
+    <div id="dlTeamMembersRadioList" class="team-list"></div>
+    <div class="modal-actions"><button class="btn-ghost" onclick="closeTeamSelectModal()">Cancel</button><button class="btn-primary" onclick="confirmTeamShareAction()">Share now</button></div>
+  </div>
+</div>
+<div class="overlay" id="dlDispositionModal">
+  <div class="modal-card">
+    <button class="x" onclick="document.getElementById('dlDispositionModal').style.display='none'" aria-label="Close"><svg class="ico"><use href="#i-x"/></svg></button>
+    <div class="disp-head"><span class="disp-head-ico"><svg class="ico"><use href="#i-phone"/></svg></span><div><h3>Call outcome</h3>
+    <p class="muted">How did the call to <b id="dispTargetPhoneNum"></b> go? Pick one status to log it.</p></div></div>
+    <div class="disp-grid" id="dispOptions"></div>
+  </div>
+</div>
+<div class="overlay" id="dlCallingDetailModal" onclick="if(event.target===this)this.style.display='none'">
+  <div class="modal-card">
+    <button class="x" onclick="document.getElementById('dlCallingDetailModal').style.display='none'" aria-label="Close"><svg class="ico"><use href="#i-x"/></svg></button>
+    <h3>Current shift details</h3>
+    <div id="dlCallingBody"></div>
+  </div>
+</div>
+<div class="overlay" id="dlContactModal" onclick="if(event.target===this)closeContactModal()">
+  <div class="modal-card wide ct-modal" role="dialog" aria-modal="true" aria-labelledby="dlContactTitle">
+    <button class="x ct-x" onclick="closeContactModal()" aria-label="Close"><svg class="ico"><use href="#i-x"/></svg></button>
+    <div class="ct-hero">
+      <span class="ct-hero-ico"><svg class="ico"><use href="#i-headset"/></svg></span>
+      <h3 id="dlContactTitle">Contact us</h3>
+      <p>Account access, license changes or technical help: reach the Dispatch Link team in whichever way is quickest for you.</p>
+    </div>
+    <div class="ct-body">
+      <div class="ct-cards">
+        <div class="ct-card">
+          <span class="ct-ico"><svg class="ico"><use href="#i-phone"/></svg></span>
+          <small>Phone</small><b class="mono">03700684849</b>
+          <div class="ct-act"><a class="btn-start" href="tel:03700684849">Call</a><button class="btn-ghost" onclick="copyContactValue('03700684849','Phone number')">Copy</button></div>
+        </div>
+        <div class="ct-card wa">
+          <span class="ct-ico"><svg class="ico"><use href="#i-chat"/></svg></span>
+          <small>WhatsApp</small><b class="mono">03700684849</b>
+          <div class="ct-act"><a class="btn-start" href="https://wa.me/923700684849" target="_blank" rel="noopener">Open chat</a></div>
+        </div>
+        <div class="ct-card">
+          <span class="ct-ico"><svg class="ico"><use href="#i-mail"/></svg></span>
+          <small>Email</small><b>info@dispatchlink.online</b>
+          <div class="ct-act"><a class="btn-start" href="mailto:info@dispatchlink.online?subject=Dispatch%20Link%20support">Write</a><button class="btn-ghost" onclick="copyContactValue('info@dispatchlink.online','Email address')">Copy</button></div>
+        </div>
+      </div>
+      <div class="ct-sec">
+        <h4>How we can help</h4>
+        <ul class="ct-topics">
+          <li><svg class="ico"><use href="#i-check"/></svg>Account access and password resets</li>
+          <li><svg class="ico"><use href="#i-check"/></svg>Device and tab limit increases</li>
+          <li><svg class="ico"><use href="#i-check"/></svg>Subscription renewal and expiry</li>
+          <li><svg class="ico"><use href="#i-check"/></svg>Technical issues and feature requests</li>
+        </ul>
+      </div>
+      <div class="ct-sec">
+        <h4>Your account</h4>
+        <div class="ct-account" id="dlContactAccount"></div>
+      </div>
+      <div class="ct-dev">
+        <span class="ct-avatar">MN</span>
+        <div><small>Developed by</small><b>Mr. Nauman</b></div>
+        <span class="ct-dev-tag"><svg class="ico"><use href="#i-code"/></svg>Dispatch Link</span>
+      </div>
+      <div class="ct-foot"><b>Before you call or write:</b> keep your company username and agent name ready so we can find your account quickly.</div>
+    </div>
+  </div>
+</div>
+
+<div id="toastStack"></div>
+<div id="dlFloatingNavPanel">
+  <button id="dlScrollUpBtn" onclick="scrollToTopScreen()" title="Scroll to top" aria-label="Scroll to top"><svg class="ico"><use href="#i-up"/></svg></button>
+  <button id="dlScrollDownBtn" onclick="scrollToLastCalledLead()" title="Jump to last called lead" aria-label="Jump to last called lead"><svg class="ico"><use href="#i-down"/></svg></button>
+</div>
+
+<script src="auth.js"></script>
+<script src="scraper-core.js"></script>
+<script>
+/* live summary cells */
+(function () {
+  const t = document.getElementById('resultsTable'), rec = document.getElementById('kpiRecords'),
+        rng = document.getElementById('kpiRange'), a = document.getElementById('startMc'), b = document.getElementById('endMc');
+  const count = () => rec.textContent = [...t.rows].filter(r => r.cells.length > 2).length;
+  const range = () => rng.textContent = (+a.value || +b.value) ? `${a.value} - ${b.value}` : 'Not set';
+  new MutationObserver(count).observe(t, { childList: true });
+  a.addEventListener('input', range); b.addEventListener('input', range);
+  new MutationObserver(range).observe(a, { attributes: true }); range();
+})();
+</script>
+</body>
+</html>

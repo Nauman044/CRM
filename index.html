@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dispatch Link | Sign in</title>
+<link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/mrartist048/fmcsa-control@main/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="portal.css">
+</head><body>
+<svg width="0" height="0" style="position:absolute"><symbol id="i-crm" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+<symbol id="i-dms" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></symbol>
+<symbol id="i-ok" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol></svg>
+<div class="split">
+ <div class="brandside">
+  <div class="logo"><span class="lg"><img src="https://cdn.jsdelivr.net/gh/mrartist048/fmcsa-control@main/favicon.png" alt=""></span>Dispatch Link</div>
+  <div><h1>One workspace for sales and dispatch.</h1><p>Lead calling CRM and dispatch management, secured with role-based access for every person on your team.</p>
+   <ul><li><svg class="ico"><use href="#i-ok"/></svg>Admin controls both CRM and DMS</li><li><svg class="ico"><use href="#i-ok"/></svg>Sales agents see CRM only</li><li><svg class="ico"><use href="#i-ok"/></svg>Dispatchers see DMS only</li></ul></div>
+  <small>&copy; <span id="yr"></span> Dispatch Link. All rights reserved.</small>
+ </div>
+ <div class="formside"><div class="box">
+  <h2 id="h">Sign in</h2><p id="s"></p>
+  <div class="seg" id="seg"><button data-t="crm" class="on"><svg class="ico"><use href="#i-crm"/></svg>CRM Login</button><button data-t="dms"><svg class="ico"><use href="#i-dms"/></svg>DMS Login</button></div>
+  <div id="fSign">
+   <label for="u">Username</label><input id="u" autocomplete="username">
+   <label for="p">Password</label><div class="pw"><input id="p" type="password" autocomplete="current-password"><button type="button" onclick="eye('p')" aria-label="Show password"><svg class="ico"><use href="#i-eye"/></svg></button></div>
+   <label for="co">Company ID <small>(team members only, admin leaves blank)</small></label><input id="co" autocomplete="off" placeholder="Your company username">
+   <button class="btn pri block" id="go" onclick="signIn()"></button>
+   <div class="msg" id="e1"></div>
+   <div class="foot">First time here? <button class="lnk" onclick="mode(1)">Create your password</button></div>
+  </div>
+  <div id="fAct" hidden>
+   <label for="au">Username given by Dispatch Link</label><input id="au" autocomplete="off">
+   <label for="ap">Create password <small>(min 6 characters)</small></label><div class="pw"><input id="ap" type="password" autocomplete="new-password"><button type="button" onclick="eye('ap')" aria-label="Show password"><svg class="ico"><use href="#i-eye"/></svg></button></div>
+   <label for="ap2">Confirm password</label><input id="ap2" type="password" autocomplete="new-password" onkeydown="if(event.key==='Enter')create()">
+   <button class="btn pri block" id="ago" onclick="create()">Create password &amp; continue</button>
+   <div class="msg" id="e2"></div>
+   <div class="foot">Already have a password? <button class="lnk" onclick="mode(0)">Back to sign in</button></div>
+  </div>
+  <div class="foot" style="border:0;margin-top:6px">Need access? Contact admin: <b>03700684849</b> &middot; info@dispatchlink.online</div>
+ </div></div>
+</div>
+<script src="auth.js"></script>
+<script>
+const $=id=>document.getElementById(id);let tab='crm';
+$('yr').textContent=new Date().getFullYear();
+const s0=DL.session();if(s0)DL.guard([s0.role]).then(s=>s&&location.replace({admin:'hub.html',sales:'crm.html',dispatcher:'dms.html'}[s.role]));   // already signed in
+function setTab(t){tab=t;document.querySelectorAll('#seg button').forEach(b=>b.classList.toggle('on',b.dataset.t===t));
+ $('s').textContent=t==='crm'?'Sales workspace: lead scanning, calling and follow-ups.':'Dispatch workspace: carriers, loads and invoices.';
+ $('go').textContent=t==='crm'?'Sign in to CRM':'Sign in to DMS';$('e1').textContent=''}
+$('seg').onclick=e=>{const b=e.target.closest('button');if(b)setTab(b.dataset.t)};
+function mode(a){$('fSign').hidden=!!a;$('fAct').hidden=!a;$('seg').hidden=!!a;$('h').textContent=a?'Create your password':'Sign in';
+ $('s').textContent=a?'Use the username issued to your company. You set the password yourself.':'';if(!a)setTab(tab)}
+function eye(id){const i=$(id);i.type=i.type==='password'?'text':'password'}
+async function run(btn,out,fn){btn.disabled=true;out.className='msg';out.textContent='';
+ try{location.replace(await fn())}catch(e){out.textContent=DL.msg(e);btn.disabled=false}}
+const signIn=()=>run($('go'),$('e1'),()=>DL.login(tab,$('u').value,$('p').value,$('co').value));
+const create=()=>run($('ago'),$('e2'),()=>DL.activate($('au').value,$('ap').value,$('ap2').value));
+['u','p','co'].forEach(i=>$(i).addEventListener('keydown',e=>e.key==='Enter'&&signIn()));
+setTab('crm');
+</script></body></html>
